@@ -12,6 +12,9 @@
 		858F61F3204D814600447F79 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 858F61F1204D814600447F79 /* Main.storyboard */; };
 		858F61F5204D814600447F79 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 858F61F4204D814600447F79 /* Assets.xcassets */; };
 		858F61F8204D814600447F79 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 858F61F6204D814600447F79 /* LaunchScreen.storyboard */; };
+		CA01F17739D3B7B2C76BDAA7 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = CA01F175E3C94CE35A4D7BB2 /* .gitignore */; };
+		CA01F488B62669B01CCEE63A /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = CA01FA7CC670F6B0338CD289 /* LICENSE */; };
+		CA01F9C346E19BD47117C057 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = CA01F20E35038FBC65FD099A /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		858F61F4204D814600447F79 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		858F61F7204D814600447F79 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		858F61F9204D814600447F79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CA01F175E3C94CE35A4D7BB2 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
+		CA01F20E35038FBC65FD099A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		CA01FA7CC670F6B0338CD289 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +46,9 @@
 			children = (
 				858F61EC204D814600447F79 /* WeatherApp */,
 				858F61EB204D814600447F79 /* Products */,
+				CA01F175E3C94CE35A4D7BB2 /* .gitignore */,
+				CA01FA7CC670F6B0338CD289 /* LICENSE */,
+				CA01F20E35038FBC65FD099A /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -126,6 +135,8 @@
 				858F61F8204D814600447F79 /* LaunchScreen.storyboard in Resources */,
 				858F61F5204D814600447F79 /* Assets.xcassets in Resources */,
 				858F61F3204D814600447F79 /* Main.storyboard in Resources */,
+				CA01F17739D3B7B2C76BDAA7 /* .gitignore in Resources */,
+				CA01F488B62669B01CCEE63A /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,6 +149,7 @@
 			files = (
 				858F61F0204D814600447F79 /* ViewController.swift in Sources */,
 				858F61EE204D814600447F79 /* AppDelegate.swift in Sources */,
+				CA01F9C346E19BD47117C057 /* README.md in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
