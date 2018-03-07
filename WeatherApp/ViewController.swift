@@ -42,7 +42,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "weather") as! WeatherTableViewCell
         let dict = temp[indexPath.row]
-        cell.tempLabel?.text = dict.temperature + " C"
+        cell.tempLabel?.text = dict.temperature
         cell.dateLabel?.text = dict.dateTime
         return cell
     }
@@ -127,11 +127,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDe
         } , failure: { (error) in
             print(error)})
 
-    }
-    
-    func drowGraph() {
-        
-        
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
