@@ -35,7 +35,7 @@ class WeatherAPIManager: CLLocation  {
     
     
     
-    func requestGETURL(latitude: Double, longitude: Double, metric:String = "metric", success:@escaping (JSON) -> Void, failure:@escaping (Error) -> Void)
+    func requestGETURL(latitude: Double, longitude: Double, metric:String, success:@escaping (JSON) -> Void, failure:@escaping (Error) -> Void)
     {
         let url = getURL(latitude: latitude, longitude: longitude, metric: metric)
         Alamofire.request(url).responseJSON { (responseObject) -> Void in
@@ -51,6 +51,24 @@ class WeatherAPIManager: CLLocation  {
             }
         }
     }
+    
+    func parserJSON(json: JSON) -> [Weather] {
+        var temp:[Weather] = []
+        for i in stride(from: 0, to: json["list"].count, by: 1) {
+
+            
+            
+            temp.append(Weather(dateTime: json["list"][i]["dt_txt"].stringValue, temperature: json["list"][i]["main"]["temp"].stringValue))
+
+            
+        }
+        self.data = temp
+        temp = []
+        
+        return self.data
+    }
+    
+    
     
     
 }

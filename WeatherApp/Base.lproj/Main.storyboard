@@ -28,7 +28,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FaK-lb-qaU">
-                                <rect key="frame" x="0.0" y="406" width="414" height="330"/>
+                                <rect key="frame" x="0.0" y="406" width="414" height="303"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="weather" rowHeight="82" id="iTp-q6-eRB" customClass="WeatherTableViewCell" customModule="WeatherApp" customModuleProvider="target">
@@ -70,21 +70,37 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="wlu-tY-R4p">
+                                <rect key="frame" x="0.0" y="708" width="414" height="28"/>
+                                <segments>
+                                    <segment title="Celsius"/>
+                                    <segment title="Kelvin"/>
+                                    <segment title="Fahrenheit"/>
+                                </segments>
+                                <connections>
+                                    <action selector="changeValue:" destination="BYZ-38-t0r" eventType="valueChanged" id="l8f-7r-76b"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="wlu-tY-R4p" firstAttribute="top" secondItem="FaK-lb-qaU" secondAttribute="bottom" constant="-1" id="8KD-57-HAe"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="U6l-cc-hVI" secondAttribute="trailing" id="EQj-Yv-lzN"/>
                             <constraint firstItem="U6l-cc-hVI" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="H4A-v5-ASR"/>
                             <constraint firstItem="FaK-lb-qaU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="KIZ-qN-Fv5"/>
                             <constraint firstItem="U6l-cc-hVI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="PjV-ar-7yn"/>
+                            <constraint firstItem="wlu-tY-R4p" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Rtz-xi-1OG"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wlu-tY-R4p" secondAttribute="trailing" id="Sbl-Ie-1eQ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="wlu-tY-R4p" secondAttribute="bottom" constant="1" id="hMp-8C-JxB"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="FaK-lb-qaU" secondAttribute="trailing" id="hf4-tJ-4rQ"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="FaK-lb-qaU" secondAttribute="bottom" id="l1Z-ZR-pLp"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="FaK-lb-qaU" secondAttribute="bottom" constant="27" id="l1Z-ZR-pLp"/>
                             <constraint firstItem="FaK-lb-qaU" firstAttribute="top" secondItem="U6l-cc-hVI" secondAttribute="bottom" constant="8" id="mQf-Wd-tTg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="lineChartView" destination="U6l-cc-hVI" id="BDv-sc-sao"/>
+                        <outlet property="segmented" destination="wlu-tY-R4p" id="oC2-uE-ZFH"/>
                         <outlet property="tblJSON" destination="FaK-lb-qaU" id="61w-rl-oyY"/>
                     </connections>
                 </viewController>
