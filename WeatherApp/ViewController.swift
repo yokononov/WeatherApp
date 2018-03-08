@@ -45,11 +45,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDe
         switch segmented.selectedSegmentIndex
         {
         case 0:
-            cell.tempLabel?.text = dict.temperature
+            cell.tempLabel?.text = dict.temperature + " C"
         case 1:
-            cell.tempLabel?.text = String(Double(dict.temperature)! + 273.15)
+            cell.tempLabel?.text = String(Double(dict.temperature)! + 273.15) + " K"
         case 2:
-            cell.tempLabel?.text = String(Double(dict.temperature)! * 2.5 + 32)
+            cell.tempLabel?.text = String(Double(dict.temperature)! * 2.5 + 32) + " F"
         default:
             break
         }
@@ -190,8 +190,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDe
             self.locationManager.stopUpdatingLocation()
             
             self.myLocation = CLLocationCoordinate2D(latitude: locValue.coordinate.latitude, longitude: locValue.coordinate.longitude)
+            print(myLocation)
             
             getValues()
+            
         }
     
 
