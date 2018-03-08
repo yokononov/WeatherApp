@@ -49,7 +49,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDe
         case 1:
             cell.tempLabel?.text = String(Double(dict.temperature)! + 273.15) + " K"
         case 2:
-            cell.tempLabel?.text = String(Double(dict.temperature)! * 2.5 + 32) + " F"
+            cell.tempLabel?.text = String(Double(dict.temperature)! * 1.8 + 32) + " F"
         default:
             break
         }
@@ -190,7 +190,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDe
             self.locationManager.stopUpdatingLocation()
             
             self.myLocation = CLLocationCoordinate2D(latitude: locValue.coordinate.latitude, longitude: locValue.coordinate.longitude)
-            print(myLocation)
             
             getValues()
             

@@ -20,7 +20,12 @@ class WeatherAPIManager  {
         let currentURL = "\(baseURl)appid=\(apiKey)&lat=\(latitude)&lon=\(longitude)&units=\(metric)"
         return currentURL
     }
-
+    
+    
+    
+    
+    
+    
     func requestGETURL(latitude: Double, longitude: Double, metric:String, success:@escaping (JSON) -> Void, failure:@escaping (Error) -> Void)
     {
         let url = getURL(latitude: latitude, longitude: longitude, metric: metric)
