@@ -87,6 +87,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDe
                 let ds = LineChartDataSet(values: valuesCel, label: "Temperature")
                 
                 ds.colors = [NSUIColor.red]
+                ds.drawCircleHoleEnabled = false
+                ds.circleRadius = 1
                 data.addDataSet(ds)
                 
                 self.lineChartView.data = data
@@ -95,17 +97,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDe
             case "":
                 let data = LineChartData()
                 let ds = LineChartDataSet(values: valuesKel, label: "Temperature")
-                
+                ds.circleRadius = 1
                 ds.colors = [NSUIColor.red]
                 data.addDataSet(ds)
                 
                 self.lineChartView.data = data
                 self.lineChartView.gridBackgroundColor = NSUIColor.white
                 self.lineChartView.chartDescription?.text = "Weather"
+
             case "imperial":
                 let data = LineChartData()
                 let ds = LineChartDataSet(values: valuesFar, label: "Temperature")
-                
+                ds.circleRadius = 1
                 ds.colors = [NSUIColor.red]
                 data.addDataSet(ds)
                 
