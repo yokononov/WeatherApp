@@ -9,15 +9,8 @@
 import Foundation
 import SwiftyJSON
 import Alamofire
-import CoreLocation
 
-
-
-typealias ServiceResponse = (JSON, NSError?) -> Void
-
-
-
-class WeatherAPIManager: CLLocation  {
+class WeatherAPIManager  {
     
     let apiKey = "9a08d9c78288bc77c1974e6a9d70d83e"
     let baseURl = "https://api.openweathermap.org/data/2.5/forecast?"
@@ -27,19 +20,11 @@ class WeatherAPIManager: CLLocation  {
         let currentURL = "\(baseURl)appid=\(apiKey)&lat=\(latitude)&lon=\(longitude)&units=\(metric)"
         return currentURL
     }
-    
-    var data:[Weather] = []
-    
-    
-    
-    
-    
-    
+
     func requestGETURL(latitude: Double, longitude: Double, metric:String, success:@escaping (JSON) -> Void, failure:@escaping (Error) -> Void)
     {
         let url = getURL(latitude: latitude, longitude: longitude, metric: metric)
         Alamofire.request(url).responseJSON { (responseObject) -> Void in
-//            print(responseObject)
             if responseObject.result.isSuccess {
                 let resJson = JSON(responseObject.result.value!)
                 success(resJson)
@@ -53,19 +38,11 @@ class WeatherAPIManager: CLLocation  {
     }
     
     func parserJSON(json: JSON) -> [Weather] {
-        var temp:[Weather] = []
-        for i in stride(from: 0, to: json["list"].count, by: 1) {
-
-            
-            
-            temp.append(Weather(dateTime: json["list"][i]["dt_txt"].stringValue, temperature: json["list"][i]["main"]["temp"].stringValue))
-
-            
+        var data:[Weather] = []
+        for i in 0..<json["list"].count {
+            data.append(Weather(dateTime: json["list"][i]["dt_txt"].stringValue, temperature: json["list"][i]["main"]["temp"].stringValue))
         }
-        self.data = temp
-        temp = []
-        
-        return self.data
+        return data
     }
     
     

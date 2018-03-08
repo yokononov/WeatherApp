@@ -42,7 +42,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "weather") as! WeatherTableViewCell
         let dict = temp[indexPath.row]
-        cell.tempLabel?.text = dict.temperature
+        switch segmented.selectedSegmentIndex
+        {
+        case 0:
+            cell.tempLabel?.text = dict.temperature
+        case 1:
+            cell.tempLabel?.text = String(Double(dict.temperature)! + 273.15)
+        case 2:
+            cell.tempLabel?.text = String(Double(dict.temperature)! * 2.5 + 32)
+        default:
+            break
+        }
         cell.dateLabel?.text = dict.dateTime
         return cell
     }
@@ -60,76 +70,118 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDe
     
     var temp:[Weather] = []
     
-    func update(value: String) {
+    // First get values from API
+    func getValues() {
         let manager = WeatherAPIManager.sharedInstance
-        manager.requestGETURL(latitude: Double((self.myLocation?.latitude)!), longitude: Double((self.myLocation?.longitude)!), metric: value, success: { (json) in
-            
+        manager.requestGETURL(latitude: Double((self.myLocation?.latitude)!), longitude: Double((self.myLocation?.longitude)!), metric: "metric", success: { (json) in
             self.temp = manager.parserJSON(json: json)
-          
-            for index in (0..<self.temp.count) {
-                self.ys1.append(index)
-                self.ys2.append(Double(self.temp[index].temperature)!)
-            }
             
+            var ys1:[Int] = []
+            var ys2:[Double] = []
             var valuesCel: [ChartDataEntry] = []
-            var valuesKel: [ChartDataEntry] = []
-            var valuesFar: [ChartDataEntry] = []
+            
             for index in (0..<self.temp.count) {
-                valuesCel.append(ChartDataEntry(x: Double(self.ys1[index]), y: Double(self.ys2[index])))
-                valuesKel.append(ChartDataEntry(x: Double(self.ys1[index]), y: Double(self.ys2[index]) + 273.15))
-                valuesFar.append(ChartDataEntry(x: Double(self.ys1[index]), y: Double(self.ys2[index])*2.4 + 32))
+                ys1.append(index)
+                ys2.append(Double(self.temp[index].temperature)!)
+                valuesCel.append(ChartDataEntry(x: Double(ys1[index]), y: Double(ys2[index])))
             }
             
-            switch value
-            {
-            case "metric":
-                let data = LineChartData()
-                let ds = LineChartDataSet(values: valuesCel, label: "Temperature")
-                
-                ds.colors = [NSUIColor.red]
-                ds.drawCircleHoleEnabled = false
-                ds.circleRadius = 1
-                data.addDataSet(ds)
-                
-                self.lineChartView.data = data
-                self.lineChartView.gridBackgroundColor = NSUIColor.white
-                self.lineChartView.chartDescription?.text = "Weather"
-            case "":
-                let data = LineChartData()
-                let ds = LineChartDataSet(values: valuesKel, label: "Temperature")
-                ds.circleRadius = 1
-                ds.colors = [NSUIColor.red]
-                data.addDataSet(ds)
-                
-                self.lineChartView.data = data
-                self.lineChartView.gridBackgroundColor = NSUIColor.white
-                self.lineChartView.chartDescription?.text = "Weather"
+            let data = LineChartData()
+            let ds = LineChartDataSet(values: valuesCel, label: "Temperature")
 
-            case "imperial":
-                let data = LineChartData()
-                let ds = LineChartDataSet(values: valuesFar, label: "Temperature")
-                ds.circleRadius = 1
-                ds.colors = [NSUIColor.red]
-                data.addDataSet(ds)
-                
-                self.lineChartView.data = data
-                self.lineChartView.gridBackgroundColor = NSUIColor.white
-                self.lineChartView.chartDescription?.text = "Weather"
-            default:
-                break
-            }
-            
-            
-            
-            
-            
+            ds.colors = [NSUIColor.red]
+            ds.drawCircleHoleEnabled = false
+            ds.circleRadius = 1
+            data.addDataSet(ds)
 
+            self.lineChartView.data = data
+            self.lineChartView.gridBackgroundColor = NSUIColor.white
+            self.lineChartView.chartDescription?.text = "Weather"
             self.tblJSON.reloadData()
-
-        
         } , failure: { (error) in
             print(error)})
+    }
 
+    
+    //Just update value without API
+    
+    
+    func update(value: String) {
+        
+        
+        switch value
+        {
+        case "metric":
+            
+            var ys1:[Int] = []
+            var ys2:[Double] = []
+            var values: [ChartDataEntry] = []
+            
+            for index in (0..<self.temp.count) {
+                ys1.append(index)
+                ys2.append(Double(self.temp[index].temperature)!)
+                values.append(ChartDataEntry(x: Double(ys1[index]), y: Double(ys2[index])))
+            }
+            let data = LineChartData()
+            let ds = LineChartDataSet(values: values, label: "Temperature")
+            
+            ds.colors = [NSUIColor.red]
+            ds.drawCircleHoleEnabled = false
+            ds.circleRadius = 1
+            data.addDataSet(ds)
+            
+            self.lineChartView.data = data
+            self.lineChartView.gridBackgroundColor = NSUIColor.white
+            self.lineChartView.chartDescription?.text = "Weather"
+            self.tblJSON.reloadData()
+        case "":
+            var ys1:[Int] = []
+            var ys2:[Double] = []
+            var values: [ChartDataEntry] = []
+            
+            for index in (0..<self.temp.count) {
+                ys1.append(index)
+                ys2.append(Double(self.temp[index].temperature)!)
+                values.append(ChartDataEntry(x: Double(ys1[index]), y: Double(ys2[index]) + 273.15))
+            }
+            let data = LineChartData()
+            let ds = LineChartDataSet(values: values, label: "Temperature")
+            
+            ds.colors = [NSUIColor.red]
+            ds.drawCircleHoleEnabled = false
+            ds.circleRadius = 1
+            data.addDataSet(ds)
+            
+            self.lineChartView.data = data
+            self.lineChartView.gridBackgroundColor = NSUIColor.white
+            self.lineChartView.chartDescription?.text = "Weather"
+            self.tblJSON.reloadData()
+            
+        case "imperial":
+            var ys1:[Int] = []
+            var ys2:[Double] = []
+            var values: [ChartDataEntry] = []
+            
+            for index in (0..<self.temp.count) {
+                ys1.append(index)
+                ys2.append(Double(self.temp[index].temperature)!)
+                values.append(ChartDataEntry(x: Double(ys1[index]), y: Double(ys2[index])*2.4 + 32))
+            }
+            let data = LineChartData()
+            let ds = LineChartDataSet(values: values, label: "Temperature")
+            
+            ds.colors = [NSUIColor.red]
+            ds.drawCircleHoleEnabled = false
+            ds.circleRadius = 1
+            data.addDataSet(ds)
+            
+            self.lineChartView.data = data
+            self.lineChartView.gridBackgroundColor = NSUIColor.white
+            self.lineChartView.chartDescription?.text = "Weather"
+            self.tblJSON.reloadData()
+        default:
+            break
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -139,7 +191,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDe
             
             self.myLocation = CLLocationCoordinate2D(latitude: locValue.coordinate.latitude, longitude: locValue.coordinate.longitude)
             
-            update(value: "metric")
+            getValues()
         }
     
 
